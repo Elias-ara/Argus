@@ -7,19 +7,18 @@ spring:
 
   datasource:
     url: jdbc:postgresql://localhost:5432/argus_db
-    username: admin
-    password: admin
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: update # Cria as tabelas automaticamente ao rodar
-    show-sql: true # Mostra o SQL no console (pra facilitar o debug)
+      ddl-auto: update
+    show-sql: true
     properties:
       hibernate:
         format_sql: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
-
 
   mail:
     host: smtp.gmail.com
@@ -50,7 +49,7 @@ spring:
             user-name-attribute: email
 
 jwt:
-  secret:
+  secret: ${JWT_SECRET}
 
 logging:
   level:

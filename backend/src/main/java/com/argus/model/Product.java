@@ -1,63 +1,44 @@
 package com.argus.model;
 
+import com.argus.domain.User;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
+@Table(name = "tb_products")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String name;
 
-    @Column(length = 1000)
+    @Column(nullable = false, length = 1000)
     private String url;
 
-    private String store;
-
-    private LocalDateTime lastCheck;
+    @Column(nullable = false)
+    private BigDecimal targetPrice;
 
     private BigDecimal currentPrice;
 
-    private BigDecimal targetPrice;
+    private String storeName;
 
-    private String notificationEmail;
+    private LocalDateTime lastCheckedAt;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<PriceHistory> priceHistory = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    // --- GETTERS E SETTERS ---
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-
-    public String getUrl() { return url; }
-    public void setUrl(String url) { this.url = url; }
-
-    public String getStore() { return store; }
-    public void setStore(String store) { this.store = store; }
-
-    public LocalDateTime getLastCheck() { return lastCheck; }
-    public void setLastCheck(LocalDateTime lastCheck) { this.lastCheck = lastCheck; }
-
-    public BigDecimal getCurrentPrice() { return currentPrice; }
-    public void setCurrentPrice(BigDecimal currentPrice) { this.currentPrice = currentPrice; }
-
-    public List<PriceHistory> getPriceHistory() { return priceHistory; }
-    public void setPriceHistory(List<PriceHistory> priceHistory) { this.priceHistory = priceHistory; }
-
-    public BigDecimal getTargetPrice(){return targetPrice;}
-    public void setTargetPrice(BigDecimal targetPrice){this.targetPrice = targetPrice;}
-
-    public String getNotificationEmail() { return notificationEmail; }
-    public void setNotificationEmail(String notificationEmail) { this.notificationEmail = notificationEmail;}
-
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private java.util.List<PriceHistory> priceHistory = new java.util.ArrayList<>();
 }

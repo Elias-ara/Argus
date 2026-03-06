@@ -21,10 +21,10 @@ public class EmailService {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setFrom("Argus <" + smtpMail + ">");
 
-            if (product.getNotificationEmail() != null && !product.getNotificationEmail().isEmpty()) {
-                message.setTo(product.getNotificationEmail());
+            if (product.getUser() != null && product.getUser().getEmail() != null && !product.getUser().getEmail().isEmpty()) {
+                message.setTo(product.getUser().getEmail());
             } else {
-                message.setTo("eliasmirandaaraujo8@gmail.com"); // Fallback
+                message.setTo("eliasmirandaaraujo7@gmail.com"); // Fallback
             }
 
             message.setSubject("🚨 ALERTA DE PREÇO: " + product.getName());

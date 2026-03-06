@@ -44,7 +44,6 @@ public class ProductController {
         return repository.findById(id)
                 .map(product -> {
                     product.setTargetPrice(productDetails.getTargetPrice());
-                    product.setNotificationEmail(productDetails.getNotificationEmail());
 
                     Product updated = repository.save(product);
                     return ResponseEntity.ok(updated);

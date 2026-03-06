@@ -1,5 +1,4 @@
 package com.argus.dto;
 
-public record ResponseDTO(String name, String token) {
-
+public record ResponseDTO(String token, String name, String email) {
 }

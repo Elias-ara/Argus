@@ -66,7 +66,7 @@ public class PriceMonitorService {
                 }
 
                 product.setCurrentPrice(newPrice);
-                product.setLastCheck(LocalDateTime.now());
+                product.setLastCheckedAt(LocalDateTime.now());
                 repository.save(product);
 
                 Thread.sleep(5000);

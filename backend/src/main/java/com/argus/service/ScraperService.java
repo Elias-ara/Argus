@@ -51,15 +51,15 @@ public class ScraperService {
 
             if (existingProduct.isPresent()) {
                 product = existingProduct.get();
-                product.setLastCheck(LocalDateTime.now());
+                product.setLastCheckedAt(LocalDateTime.now());
                 product.setCurrentPrice(realPrice);
                 if (!product.getName().equals(title)) product.setName(title);
             } else {
                 product = new Product();
                 product.setUrl(url);
                 product.setName(title);
-                product.setStore(storeName);
-                product.setLastCheck(LocalDateTime.now());
+                product.setStoreName(storeName);
+                product.setLastCheckedAt(LocalDateTime.now());
                 product.setCurrentPrice(realPrice);
             }
 
@@ -205,6 +205,6 @@ public class ScraperService {
         history.setDate(LocalDateTime.now());
         product.getPriceHistory().add(history);
         productRepository.save(product);
-        System.out.println("💰 Preço capturado: R$ " + price + " | " + product.getStore());
+        System.out.println("💰 Preço capturado: R$ " + price + " | " + product.getStoreName());
     }
 }

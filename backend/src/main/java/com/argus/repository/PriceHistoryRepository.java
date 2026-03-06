@@ -2,8 +2,9 @@ package com.argus.repository;
 
 import com.argus.model.PriceHistory;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
+import java.util.List;
+
 public interface PriceHistoryRepository extends JpaRepository<PriceHistory, Long> {
+    List<PriceHistory> findAllByProductIdOrderByDateDesc(Long productId);
 }

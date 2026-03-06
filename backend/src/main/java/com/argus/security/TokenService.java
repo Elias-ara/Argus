@@ -26,4 +26,19 @@ public class TokenService {
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
+
+    public String validateToken(String token) {
+        try {
+            Key key = Keys.hmacShaKeyFor(secret.getBytes());
+
+            return Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody()
+                    .getSubject();
+        } catch (Exception exception) {
+            return "";
+        }
+    }
 }
